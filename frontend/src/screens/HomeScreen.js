@@ -1,5 +1,5 @@
 //import data from "../Data";
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +8,7 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+;
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -52,7 +53,7 @@ function HomeScreen() {
         {loading ? (
           <LoadingBox />
         ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
+          <MessageBox variant='danger'>{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (

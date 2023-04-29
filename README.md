@@ -65,19 +65,30 @@
     2. updated App.js
 
 11. I created Product and Rating component.
+
     1. Create Rating component.
     2. Create Product component.
     3. I used Rating component in Product component.
 
 12. I created Product Details Screen.
+
     1. I fetched product from the backend.
     2. Created 3 columns for image, info and action.
 
 13. I created a Loading and Message Components.
+
     1. I created a Loading Component.
     2. I used spinner component.
     3. I created a Message Component.
     4. I created utils.js to define getError function.
-    
-    
-     
+
+14. Implemented Add to cart.
+
+    1. Create React Context.
+    2. I defined a reducer.
+    3. I created the store provider.
+    4. implemented add to cart button click handler.
+
+15. I completed Add to cart
+    1. I checked exist Item in the cart.
+    2. I checked count in stock in backend.

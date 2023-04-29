@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -12,14 +12,19 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../Utlis';
+import { Store } from '../Store';
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case 'FETCH_REQUEST': {
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    }
+    case 'FETCH_SUCCESS': {
       return { ...state, product: action.payload, loading: false };
-    case 'FETCH_FAIL':
+    }
+    case 'FETCH_FAIL': {
       return { ...state, loading: false, error: action.payload };
+    }
     default:
       return state;
   }
@@ -27,6 +32,7 @@ const reducer = (state, action) => {
 function ProductScreen() {
   const params = useParams();
   const { slug } = params;
+
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
@@ -37,7 +43,8 @@ function ProductScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(`/api/products/slug/abaaya-short-dubai`);
+
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -45,15 +52,27 @@ function ProductScreen() {
     };
     fetchData();
   }, [slug]);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const addToCartHandler = () => {
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 },
+    });
+  };
   return loading ? (
     <LoadingBox />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      <h1>{product.name}</h1>
       <Row>
         <Col md={6}>
-          <img className="img-large" src={product.img} alt={product.name}></img>
+          <img
+            className="img-large"
+            src={product.image}
+            alt={product.name}
+          ></img>
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
@@ -101,7 +120,9 @@ function ProductScreen() {
                 <ListGroup.Item>
                   {product.countInStock > 0 && (
                     <div className="d-grid">
-                      <Button variant="primary">Add To Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">
+                        Add To Cart
+                      </Button>
                     </div>
                   )}
                 </ListGroup.Item>
