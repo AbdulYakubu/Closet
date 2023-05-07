@@ -98,3 +98,9 @@
     1. I created 2 columns.
     2. I displayed item list.
     3. I created action column.
+
+17. I completed the Cart Screen
+    1. click handler for increase and decrease item.
+    2. click handler for remove item.
+    3. click handler for checkout.
+    
