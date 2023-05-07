@@ -90,5 +90,11 @@
     4. implemented add to cart button click handler.
 
 15. I completed Add to cart
+
     1. I checked exist Item in the cart.
     2. I checked count in stock in backend.
+
+16. I created Cart Screen.
+    1. I created 2 columns.
+    2. I displayed item list.
+    3. I created action column.
