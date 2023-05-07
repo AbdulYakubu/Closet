@@ -43,7 +43,7 @@ function ProductScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products/slug/abaaya-short-dubai`);
+        const result = await axios.get(`/api/products/slug/${slug}`);
 
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
@@ -53,10 +53,18 @@ function ProductScreen() {
     fetchData();
   }, [slug]);
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const addToCartHandler = () => {
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry. Product is out of stock');
+      return;
+    }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity: 1 },
+      payload: { ...product, quantity },
     });
   };
   return loading ? (
@@ -68,11 +76,7 @@ function ProductScreen() {
       <h1>{product.name}</h1>
       <Row>
         <Col md={6}>
-          <img
-            className="img-large"
-            src={product.image}
-            alt={product.name}
-          ></img>
+          <img className="img-large" src={product.image} alt={product.name} />
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">

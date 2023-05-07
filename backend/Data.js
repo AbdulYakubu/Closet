@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: '1',
       name: 'Abaaya-Long',
       slug: 'abaaya-long-dubai',
       category: 'Dubai-Abaaya',
@@ -13,6 +14,7 @@ const data = {
       description: 'High quality abaaya',
     },
     {
+      _id: '2',
       name: 'Abaaya-short',
       slug: 'abaaya-short-dubai',
       category: 'Dubai-Abaaya',
@@ -25,6 +27,7 @@ const data = {
       description: 'High quality abaaya',
     },
     {
+      _id: '3',
       name: 'Long-Jalabia',
       slug: 'jalabia-long-dubai',
       category: 'Dubai-jalibab',
@@ -37,6 +40,7 @@ const data = {
       description: 'High quality jalibab',
     },
     {
+      _id: '4',
       name: 'Short-Jalabia',
       slug: 'jalabia-short-dubai',
       category: 'Saudi-jalibab',
