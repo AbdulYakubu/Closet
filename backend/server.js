@@ -1,6 +1,17 @@
 import express from 'express';
 import data from './Data.js';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose'
 
+dotenv.config();
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('connected to db');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 const app = express();
 //test
 app.get('/api/products', (req, res) => {
